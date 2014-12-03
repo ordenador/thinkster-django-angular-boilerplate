@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-var app = angular.module('thinkster', [ 'thinkster.authentication', 'ngRoute']);
+var app = angular.module('thinkster', [ 'thinkster.authentication', 'thinkster.layout', 'ngRoute' ]);
 
   app.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider){
 
