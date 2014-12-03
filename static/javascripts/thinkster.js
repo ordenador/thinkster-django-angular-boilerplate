@@ -1,28 +1,29 @@
 (function () {
   'use strict';
 
-  angular
-    .module('thinkster', [
-      'thinkster.config',
-      'thinkster.routes',
-      'thinkster.authentication'
-    ]);
+var app = angular.module('thinkster', [ 'thinkster.authentication', 'ngRoute']);
 
-  angular
-    .module('thinkster.routes', ['ngRoute'])
-    .module('thinkster.config', [])
-    .module('thinkster')
-    .run(run);
+  app.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider){
 
-    run.$inject = ['$http'];
+    //$locationProvider.html5Mode(true);
+    //$locationProvider.hashPrefix('!');
 
-    /**
-    * @name run
-    * @desc Update xsrf $http headers to align with Django's defaults
-    */
-    function run($http) {
+    $routeProvider.when('/register', {
+      controller: 'RegisterController',
+      controllerAs: 'vm',
+      templateUrl: '/static/templates/authentication/register.html'
+    }).when('/login', {
+      controller: 'LoginController',
+      controllerAs: 'vm',
+      templateUrl: '/static/templates/authentication/login.html'
+    }).otherwise('/');
+
+  }]);
+
+  app.run(['$http', function($http){
       $http.defaults.xsrfHeaderName = 'X-CSRFToken';
       $http.defaults.xsrfCookieName = 'csrftoken';
-    }
+    }]);
+
 
 })();
